@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Складовик - {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "bootstrap/bootstrap-grid.min.css" %}" />
+    <link rel="stylesheet" href="{% static "css/header.css" %}" />
+    <link rel="stylesheet" href="{% static "css/navbar.css" %}" />
+    <link rel="stylesheet" href="{% static "css/main.css" %}" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="{% static "js/jquery-3.3.1.min.js" %}" type="text/javascript"></script>
+</head>
+<body>
+{#    {% include "login.html" %}#}
+    {% include "header/header.html" %}
+    <div class="container-fluid margMain">
+        <div class="row">
+            {% include "leftNavBar.html" %}
+            <div class="offset-4 offset-lg-2 col-8 col-lg-10 main">
+                {% if index == 1 %}
+                    {% include "body.html" %}
+                {% elif index == 2 %}
+                    {% include "sklad.html" %}
+                {% elif index == 3 %}
+                    {% include "stelash.html" %}
+                {% elif index == 4 %}
+                    {% include "traffic.html" %}
+                {% elif index == 5 %}
+                    {% include "trafficEdit.html" %}
+                {% elif index == 6 %}
+                    {% include "car.html" %}
+                {% elif index == 7 %}
+                    {% include "unloading.html" %}
+                {% elif index == 8 %}
+                    {% include "trafficEditU.html" %}
+                {% elif index == 9 %}
+                    {% include "stats.html" %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="{% static 'js/jspdf.min.js' %}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'js/sklad.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% if index == 9 %}
+        <script src="{% static 'js/Chart.js' %}"></script>
+    {% endif %}
+</body>
+</html>

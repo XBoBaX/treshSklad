@@ -1,0 +1,27 @@
+.blackBgB{
+    background-color: #f47c28;
+    color: white;
+    height: 76px;
+}
+.logo{
+    color: black;
+    background-color: white;
+    font-size: 34px;
+    font-weight: bold;
+}
+.vCenter.item1Head{
+    left: 20%;
+    font-size: 21px;
+    font-weight: bold;
+}
+.vCenter.itemUsHead{
+    font-size: 21px;
+    font-weight: bold;
+    right: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%)
+}
+header{
+    z-index: 99;
+}

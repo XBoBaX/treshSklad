@@ -1,0 +1,94 @@
+<div class="main_index">
+    <div class="container-fluid">
+        <div class="row filterOrder">
+            <div id="all1" class="col-2 activeFilter" onclick="select_active3('all1')">
+                <div class="center">Все <span class="filt"> ({{ prd.count }})</span></div>
+            </div>
+            <div id="otp1" class="col-2" onclick="select_active3('otp1')">
+                <div class="center">Отправленные <span class="filt"> ({{ prd_sx }})</span></div>
+            </div>
+            <div id="prb1" class="col-2" onclick="select_active3('prb1')">
+                <div class="center">В обработке <span class="filt"> ({{ prd_st }})</span></div>
+            </div>
+            <div id="prn1" class="col-2" onclick="select_active3('prn1')">
+                <div class="center">Принятые <span class="filt"> ({{ prd_ht }})</span></div>
+            </div>
+            <div id="otm1" class="col-2" onclick="select_active3('otm1')">
+                <div class="center" >Отмененные <span class="filt"> ({{ prd_ot }})</span></div>
+            </div>
+        </div>
+
+        <div class="row pad15TB">
+            <select id="sklad_tovar" class="btnTable h36" name="sklad_select">
+                <option selected value="Все">Все склады</option>
+                {% for ch in sk %}
+                    <option value="{{ ch.name }}">{{ ch.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div id="tableSql" class="container-fluid tableSql">
+            <div class="row headTableSql">
+                <div class="col-3">
+                    <div class="center">Название</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Температ.</div>
+                </div>
+                <div class="col-3">
+                    <div class="center">Срок годности</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Грузопоток</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Паллет, шт</div>
+                </div>
+            </div>
+            {% cycle '1' '0' as rowcolors silent %}
+            {% for rec in prd %}
+                {% if rowcolors == '1'%}
+                    <div class="row strTable
+                    {% if rec.status == "Отправлен" %}
+                    otp1
+                    {% elif rec.status == "В обработке" %}
+                    prb1
+                    {% elif rec.status == "Принят" %}
+                    prn1
+                    {% else %}
+                    otm1
+                    {% endif %} {{ rec.sklad.name }}
+                    " onclick="selProduct('{{ rec.id }}')">
+                {% else %}
+                    <div class="row strTable secondTable
+                    {% if rec.status == "Отправлен" %}
+                    otp1
+                    {% elif rec.status == "В обработке" %}
+                    prb1
+                    {% elif rec.status == "Принят" %}
+                    prn1
+                    {% else %}
+                    otm1
+                    {% endif %} {{ rec.sklad.name }}
+                    " onclick="selProduct('{{ rec.id }}')">
+                {% endif %}
+                        <div class="col-3">
+                            <div class="center">{{ rec.name }}{% cycle rowcolors %}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.optimumTemperature }}</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="center">{{ rec.shelfLife }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.traffic.name }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.countPallet }}</div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

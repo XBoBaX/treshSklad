@@ -1,0 +1,81 @@
+<div class="main_index">
+    <div class="container-fluid">
+        <div id="trafficEdit1" class="container-fluid skladAdd tableInput" style="display: block">
+            <form id="trfEdit" role="form">{% csrf_token %}
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="unload_dateReg" class="nameTable">Дата регистрации</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="unload_dateReg" readonly type="text" name="unload_dateReg"  value="{{ tr.dateRegister }}">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="unload_coutPall" class="nameTable">Количество паллет</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="unload_coutPall" readonly type="text" name="unload_coutPall"  value="{{ tr.coutPalletAll }}">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="unload_datePrb" class="nameTable">Ожидаемое время прибытия</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="unload_datePrb" readonly type="text" value="{{ tr.dateArrival }}" name="unload_datePrb">
+                    </div>
+                </div>
+                <div class="row pad15" id="unload_start">
+                    <div class="col-4 divNameT">
+                        <label for="unload_dateUpl" class="nameTable">Время разгрузки</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="unload_dateUpl" readonly type="text" value="{{ tr.dateUpload }}" name="unload_dateUpl">
+                    </div>
+                </div>
+                <input id="hiddenRT2" class="d-none" value="{{ tr.id }}" >
+
+                {% if tr.status == "Ожидание" %}
+                    <div class="row pad15" id="pribilBtn">
+                        <div class="col-4 offset-4" style="height: 36px">
+                            <div class="center svr" onclick="startUnload('{{ tr.id }}')">Начать загрузку</div>
+                        </div>
+                    </div>
+                {% endif %}
+
+
+                <div id="uploader1" class="row pad15" {% if tr.loads == False %}style="display: none"{% endif %}>
+                    <div class="col-4 divNameT">
+                        <label for="uploader_car1" class="nameTable">Транспорт для разгрузки</label>
+                    </div>
+                     <div class="col-7">
+                         <select class="btnTable" id="uploader_car1" name="uploader_car1" onchange="changeUploader(1)">
+                            {% for sk in car %}
+                                <option value="{{ sk.id }}">{{ sk.name }}. Сегодня: {{ sk.timeUse }}</option>
+                            {% endfor %}
+                        </select>
+                     </div>
+                </div>
+            <div id="pribil1" class="row pad15" {% if tr.status == "Ожидание" %}style="display: none"{% endif %}>
+                <div class="col-4 divNameT">
+                    <label for="traffic_raz" class="nameTable">Разгружает</label>
+                </div>
+                <div class="col-7">
+                    <input id="traffic_raz" readonly type="text" value="{{ car_now.name }}" name="traffic_raz" placeholder="Разгружает транспорт и сотрудник">
+                </div>
+            </div>
+                <div class="row pad15" id="razgruzkaBtn" {% if tr.loads != True %}style="display: none"{% endif %}>
+                    <div class="col-4 offset-4" style="height: 36px">
+                        <div class="center svr" onclick="razgruzkaTraffic2('{{ tr.id }}')">Разгрузить </div>
+                    </div>
+                </div>
+                <div class="row pad15 padTop30" id="stopBtn" {% if tr.loads == True %}style="display: none"{% endif %}>
+                    <div class="col-4 offset-4 btnTable" style="height: 36px" onclick="stopTraffic3('{{ tr.id }}')">
+                        <div class="center" >Разгрузка завершена</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

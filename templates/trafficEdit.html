@@ -1,0 +1,135 @@
+<div class="main_index">
+    <div class="container-fluid">
+        <div id="trafficEdit1" class="container-fluid skladAdd tableInput" style="display: block">
+            <form id="trfEdit" role="form">{% csrf_token %}
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic_name" class="nameTable">Юридическое лицо</label>
+                    </div>
+                    <div class="col-7">
+                        <input {% if type_user != "Менеджер" %}readonly{% endif %} id="traffic_name" type="text" name="traffic_name" placeholder="Юридическое лицо" value="{{ tr.name }}">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic_dateReg" class="nameTable">Дата регистрации</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="traffic_dateReg" readonly type="text" value="{{ tr.dateRegister }}" name="traffic_dateReg" placeholder="Дата регистрации грузопотока">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic_sklad" class="nameTable">
+                            {% if tr.status == "Отправлен" %}
+                                Направляется на склад
+                            {% else %}
+                                На складе
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div class="col-7">
+                        <input id="traffic_sklad" readonly type="text" value="{{ tr.sklad.name }}" name="traffic_sklad" placeholder="Склад">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic_countPl" class="nameTable">Количество паллет</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="traffic_countPl" readonly type="text" value="{{ tr.coutPalletAll }}" name="traffic_countPl" placeholder="Количество паллет">
+                    </div>
+                </div>
+                {% if tr.status == "Отправлен" %}
+                    <div class="row pad15" id="pribilBtn">
+                        <div class="col-4 offset-4" style="height: 36px">
+                            <div class="center svr" onclick="pribilTraffic('{{ tr.id }}')">Грузопоток Прибыл</div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div id="pribil1" class="row pad15" {% if tr.status == "Отправлен" %}style="display: none"{% endif %}>
+                    <div class="col-4 divNameT">
+                        <label for="traffic_dateUpload" class="nameTable">Дата прибытия</label>
+                    </div>
+                     <div class="col-7">
+                         <input id="traffic_dateUpload" readonly type="text" value="{{ tr.dateUpload }}" name="traffic_dateUpload" placeholder="Дата прибытия грузопотока">
+                     </div>
+                </div>
+                <div id="pribil2" class="row pad15" {% if tr.status == "Отправлен" %}style="display: none"{% endif %}>
+                    <div class="col-4 divNameT">
+                        <label for="traffic_car" class="nameTable">Транспорт для разгрузки</label>
+                    </div>
+                     <div class="col-7">
+                         <select class="btnTable" id="traffic_car" name="traffic_car">
+                            {% for sk in car %}
+                                <option value="{{ sk.id }}">{{ sk.name }}. Сегодня: {{ sk.timeUse }}</option>
+                            {% endfor %}
+                        </select>
+                     </div>
+                </div>
+            <div id="pribil1" class="row pad15" {% if tr.status == "Отправлен" %}style="display: none"{% endif %}>
+                    <div class="col-4 divNameT">
+                        <label for="traffic_raz" class="nameTable">Разгружает</label>
+                    </div>
+                     <div class="col-7">
+                         <input id="traffic_raz" readonly type="text" value="{{ car_now.name }}" name="traffic_raz" placeholder="Разгружает транспорт и сотрудник">
+                     </div>
+                </div>
+                <div class="row pad15" id="razgruzkaBtn" {% if tr.status == "Отправлен" or tr.unloads %}style="display: none"{% endif %}>
+                    <div class="col-4 offset-4" style="height: 36px">
+                        <div class="center svr" onclick="razgruzkaTraffic('{{ tr.id }}')">Разгрузить </div>
+                    </div>
+                </div>
+
+
+                <div class="row pad15 padTop30" id="stopBtn" {% if tr.status == "Отправлен" %}style="display: none"{% endif %}>
+                    <div class="col-3 offset-3 btnTable" style="height: 36px" onclick="stopTraffic('{{ tr.id }}', 'cancell')">
+                        <div class="center " >Разгрузка отменена</div>
+                    </div>
+                    <div class="col-3 btnTable" style="height: 36px" onclick="stopTraffic('{{ tr.id }}', 'success')">
+                        <div class="center" >Разгрузка завершена</div>
+                    </div>
+                </div>
+                    <div class="row pad15">
+                        <div id="tableSql" class="container-fluid tableSql" style="min-height: 100%">
+                            <div class="row headTableSql">
+                                <div class="col-3">
+                                    <div class="center">Название</div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="center">Температура</div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="center">Срок годности</div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="center">Паллет, шт</div>
+                                </div>
+                            </div>
+                            {% cycle '1' '0' as rowcolors silent %}
+                            {% for tov in prd %}
+                                {% if rowcolors == '1'%}
+                                    <div class="row strTable">
+                                {% else %}
+                                    <div class="row strTable secondTable">
+                                {% endif %}
+                                    <div class="col-3">
+                                        <div class="center">{{ tov.name }}{% cycle rowcolors %}</div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="center">{{ tov.optimumTemperature }}</div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="center">{{ tov.shelfLife }}</div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="center">{{ tov.countPallet }}</div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>

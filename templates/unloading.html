@@ -1,0 +1,103 @@
+<div class="main_index">
+    <div class="container-fluid">
+
+        <div class="row pad15TB">
+            <select id="sklad_tovar" class="btnTable h36" name="sklad_select">
+                {% for ch in sk %}
+                    <option value="{{ ch.name }}">{{ ch.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="row pad15TB">
+            <div class="col-12 h36">
+                <label class="nameTable center">Необходимо выбрать товары на разгрузку и</label>
+            </div>
+            <div class="col-12">
+                <div onclick="goToSettingRz()" id="btnSelectTovar" class="center svr h36">Перейти к настройки грузопотока</div>
+                <div onclick="goBackToSettingRz()" id="btnSelectTovar2" class="center svr h36">Свернуть настройки</div>
+            </div>
+        </div>
+
+        <div id="tableSettRz" class="container-fluid tableSetting">
+            <div class="row pad15TB" id="zz1">
+                <div class="col-4 divNameT">
+                    <label for="razgruzka_date" class="nameTable">Дата отправления</label>
+                </div>
+                <div class="col-7">
+                    <input id="razgruzka_date" type="date" name="razgruzka_date">
+                </div>
+            </div>
+            <div class="row pad15TB">
+                <div class="col-4 divNameT">
+                    <label for="razgruzka_count" class="nameTable">Паллет на рузгрузку</label>
+                </div>
+                <div class="col-7">
+                    <input readonly id="razgruzka_count" type="text" name="razgruzka_count">
+                </div>
+            </div>
+            <div class="row pad15TB" id="zz2">
+                <div class="col-4 divNameT">
+                    <label for="timeRaz" class="nameTable">Дата и время разгрузки</label>
+                </div>
+                <div class="col-7">
+                    <input readonly id="timeRaz" type="text" name="timeRaz">
+                </div>
+            </div>
+            <div class="row pad15TB">
+            <div class="col-12 h36" >
+                <div onclick="btnGetTimeRaz()" id="btnGetTimeRaz" class="center svr h36" style="margin-top: 0">Получить время начала разгрузки</div>
+                <div onclick="btnGetTimeRaz2()" id="btnGetTimeRaz2" class="center svr h36" style="margin-top: 0">Зарегистрировать разгрузку</div>
+            </div>
+        </div>
+        </div>
+
+        <div id="tableSql" class="container-fluid tableSql">
+            <div class="row headTableSql">
+                <div class="col-3">
+                    <div class="center">Название</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Температ.</div>
+                </div>
+                <div class="col-3">
+                    <div class="center">Срок годности</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Грузопоток</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Паллет, шт</div>
+                </div>
+            </div>
+            <input type="hidden"  value="{{ countP }}" id="countP">
+            {% cycle '1' '0' as rowcolors silent %}
+            {% for rec in prd %}
+                {% if rowcolors == '1'%}
+                    <div id="{{ rec.id }}Tov" class="row strTable {{ rec.sklad.name }}
+                    " onclick="selProduct('{{ rec.id }}'); ">
+                {% else %}
+                    <div id="{{ rec.id }}Tov" class="row strTable secondTable {{ rec.sklad.name }}
+                    " onclick="selProduct('{{ rec.id }}')">
+                {% endif %}
+                        <div class="col-3">
+                            <div class="center">{{ rec.name }}{% cycle rowcolors %}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.optimumTemperature }}</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="center">{{ rec.shelfLife }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.traffic.name }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div id="{{ rec.id }}TovC" class="center">{{ rec.countPallet }}</div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>

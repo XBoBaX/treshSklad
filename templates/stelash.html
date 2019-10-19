@@ -1,0 +1,113 @@
+<div class="main_index">
+    <div class="container-fluid" style="padding-top: 45px;">
+        <div class="row head_sh">
+            <div onclick="stelag_activ('st_show')" id="st_show" class="active_btnTable2 offset-lg-3 col-lg-3 col-6 btnTable2" style="border-radius: 4px 0 0 4px;">
+                <div class="center">Просмотр</div>
+            </div>
+            <div onclick="stelag_activ('st_add')" id="st_add" class="col-lg-3 col-6 btnTable2" style="border-radius: 0 4px 4px 0;border-left: 0;">
+                <div class="center">Добавить</div>
+            </div>
+        </div>
+        <div id="stelagAdd" class="container-fluid skladAdd tableInput">
+            <form id="formAddStelag" role="form">{% csrf_token %}
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="stelag_height" class="nameTable">Высота стелажа, мм</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="stelag_height" type="number" min="0" name="stelag_height" placeholder="Высота стелажа (одной полки)">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="stelag_dlina" class="nameTable">Длина, мм</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="stelag_dlina" type="number" min="0" max="10000" name="stelag_dlina" placeholder="Длина стеллажа">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="stelag_shirina" class="nameTable">Ширина, мм</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="stelag_shirina" type="number" min="0" max="1000000" name="stelag_shirina" placeholder="Ширина стеллажа">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="stelag_count" class="nameTable">Количество полок</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="stelag_count" min="0" max="1000" type="number" name="stelag_count" placeholder="Количество полок (ярусов)">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="stelag_kg" class="nameTable">Нагрузка, кг</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="stelag_kg" min="0" type="number" name="stelag_kg" placeholder="Нагрузка на все ярусы, кг">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="offset-5 col-3" style="padding-right: 0;">
+                        <div onclick="closeAddStelag()" class="btnTable" style="border-radius: 4px 0 0 4px;"><div class="center">Отменить</div></div>
+                    </div>
+                    <div class="col-3" style="padding-left: 0;">
+                        <input id="stelag_sbmt" class="btnTable" type="submit" value="ДОБАВИТЬ СТЕЛЛАЖ" style="border-radius: 0 4px 4px 0;border-left: 0;">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="tableSql" class="container-fluid tableSql">
+            <div class="row headTableSql">
+                <div class="col-1">
+                    <div class="center">Номер №</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Высота стелажа</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Длина</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Ширина</div>
+                </div>
+                <div class="col-3">
+                    <div class="center">Количество полок</div>
+                </div>
+                <div class="col-2">
+                     <div class="center">Нагрузка, кг</div>
+                </div>
+            </div>
+            {% cycle '1' '0' as rowcolors silent %}
+            {% for rec in stelag %}
+                {% if rowcolors == '1'%}
+                    <div class="row strTable">
+                {% else %}
+                    <div class="row strTable secondTable">
+                {% endif %}
+                        <div class="col-1">
+                            {{ rec.id }} {% cycle rowcolors %}
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.height }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.lengthS }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.widthS }}</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="center">{{ rec.countShelf }}</div>
+                        </div>
+                        <div class="col-2">
+                                <div class="center">{{ rec.kg_polki }}</div>
+                        </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

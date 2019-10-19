@@ -1,0 +1,155 @@
+<div class="main_index">
+    <div class="container-fluid" style="padding-top: 45px;">
+        <div class="row head_sh">
+            <div onclick="car_activ('car_sty')" id="car_sty" class="active_btnTable2 offset-3 col-3 btnTable2" style="border-radius: 4px 0 0 4px;">
+                <div class="center">Простой</div>
+            </div>
+            <div onclick="car_activ('car_use')" id="car_use" class="col-3 btnTable2" style="border-radius: 0 4px 4px 0;border-left: 0;">
+                <div class="center">Используется</div>
+            </div>
+            <div onclick="$('#car_add1').show();$('#tableSql, #car_sty, #car_use, #car_add').hide();" id="car_add" class="offset-1 col-1 btnTable">
+                <div class="center">Добавить</div>
+            </div>
+        </div>
+        <div id="car_add1" class="container-fluid tableInput">
+            <form id="formAddSklad" role="form">{% csrf_token %}
+                <div class="row pad15 h36">
+                    <div class="col-12 h36">
+                        <div class="center nameTable" style="font-size: 32px">Добавление транспорта для загрузки/разгрузки</div>
+                    </div>
+                </div>
+
+                <div class="row pad15 pad60">
+                    <div class="offset-1 col-4 divNameT">
+                        <label for="car_name" class="nameTable">Наименование</label>
+                    </div>
+                    <div class="col-4">
+                        <input id="car_name" type="text" name="car_name" placeholder="Название транспорта">
+                    </div>
+                </div>
+
+                <div class="row pad15 pad15T">
+                    <div class="offset-1 col-4 divNameT">
+                        <label for="car_normal_Den" class="nameTable">Норма часов в день</label>
+                    </div>
+                    <div class="col-4">
+                        <input id="car_normal_Den" type="number" min="1" max="24" name="car_normal_Den" placeholder="Ограничение по количеству часов в день">
+                    </div>
+                </div>
+
+                <div class="row pad15 pad15T">
+                    <div class="offset-1 col-4 divNameT">
+                        <label for="car_normal" class="nameTable">Ресурс использования</label>
+                    </div>
+                    <div class="col-4">
+                        <input id="car_normal" type="number" min="0" name="car_normal" placeholder="Общий ресурс использования часов">
+                    </div>
+                </div>
+                <div class="row pad15 pad15T">
+                    <div class="offset-1 col-4 divNameT">
+                        <label for="car_type_Boolean" class="nameTable">Тип транспорта</label>
+                    </div>
+                    <div class="col-4">
+                        <select id="car_type_Boolean">
+                            <option value="Перевозка">Перевозка</option>
+                            <option value="Разгрузка/Загрузка">Разгрузка/Загрузка</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row pad15 pad15T" id="palletTruck">
+                    <div class="offset-1 col-4 divNameT">
+                        <label for="car_pallet" class="nameTable">Количество паллет</label>
+                    </div>
+                    <div class="col-4">
+                        <input id="car_pallet" type="number" min="0" name="car_pallet" placeholder="Количество стандартных паллет">
+                    </div>
+                </div>
+                <div class="row pad15 pad15T">
+                    <div class="offset-1 col-4 divNameT">
+                        <label for="car_type" class="nameTable">Тип транспорта</label>
+                    </div>
+                    <div class="col-4">
+                        <select id="car_type">
+                            <option value="Сухие товары">Сухие товары</option>
+                            <option value="Скоропортящиеся товары">Скоропортящиеся товары</option>
+                            <option value="Хрупкие товары">Хрупкие товары</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row pad15 padTop30">
+                    <div class="col-4 offset-2">
+                        <div class="btnTable h72" onclick="$('#car_add1').hide();$('#tableSql, #car_sty, #car_use, #car_add').show();">
+                            <div class="center">Отменить</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="btnTable h72" onclick="addCar()">
+                            <div class="center">Добавить</div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div id="tableSql" class="container-fluid tableSql">
+            <div class="row headTableSql">
+                <div class="col-2">
+                    <div class="center">Название</div>
+                </div>
+                <div class="col-2 d1">
+                    <div class="center">Минут сегодня</div>
+                </div>
+                <div class="col-2 d2">
+                    <div class="center">Работает с</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Норма часов</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Используется всего</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Всего ресурс</div>
+                </div>
+                <div class="col-2">
+                     <div class="center">Тип</div>
+                </div>
+            </div>
+            {% cycle '1' '0' as rowcolors silent %}
+            {% for rec in car %}
+                {% if rowcolors == '1'%}
+                    <div class="row strTable {% if status == "Простой" %}d2{% else %}d1{% endif %}">
+                {% else %}
+                    <div class="row strTable secondTable {% if status == "Простой" %}d2{% else %}d1{% endif %}">
+                {% endif %}
+                        <div class="col-2">
+                            <div class="center">{{ rec.name }}{% if rec.bTrucker == True %} (truck){% endif %}</div>
+                        </div>{% cycle rowcolors %}
+                        <div class="col-2 d1">
+                            <div class="center">{{ rec.timeUse }}</div>
+                        </div>
+                        <div class="col-2 d2">
+                            <div class="center">{{ rec.dateEditStatus }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.HoursDay }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.allHoursUse }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.allHours }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center {% if rec.typeTransport == "Сухие товары" %}typeTable1
+                        {% elif rec.typeTransport == "Скоропортящиеся товары" %}typeTable2
+                        {% elif rec.typeTransport == "Хрупкие товары" %}typeTable3{% endif %}">{{ rec.typeTransport }}</div>
+                        </div>
+
+
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

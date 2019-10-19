@@ -1,0 +1,293 @@
+<div class="main_index">
+    <div class="container-fluid">
+        <div class="row filterOrder">
+            <div id="otp" onclick="select_active2('otp')" class="col-2 activeFilter">
+                <div class="center">Отправлен <span class="filt"> ({{ tr1.count }})</span></div>
+            </div>
+            <div id="zag" onclick="select_active2('zag')" class="col-2">
+                <div class="center">Загрузка <span class="filt"> ({{ tr5.count }})</span></div>
+            </div>
+            <div id="prb" onclick="select_active2('prb')" class="col-2">
+                <div class="center">Прибыл <span class="filt"> ({{ tr2.count }})</span></div>
+            </div>
+            <div id="prn" class="col-2"  onclick="select_active2('prn')">
+                <div class="center">Принят <span class="filt"> ({{ tr3.count }})</span></div>
+            </div>
+            <div id="otm" class="col-2" onclick="select_active2('otm')">
+                <div class="center">Отменен <span class="filt"> ({{ tr4.count }})</span></div>
+            </div>
+            <div {% if type_user == "Грузчик" %}style="display: none"{% endif %} id="tr_add" onclick="trafficAdd()" class="col-2">
+                <div class="center">Добавить &oplus;</div>
+            </div>
+        </div>
+
+        <div id="trafficAdd" class="container-fluid skladAdd tableInput">
+            <form id="formAddTraffic" role="form">{% csrf_token %}
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic1" class="nameTable">Юридическое лицо</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="traffic1" type="text" name="traffic1" placeholder="Юридическое лицо">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic2" class="nameTable">Дата регистрации</label>
+                    </div>
+                    <div class="col-7">
+                        <input readonly id="traffic2" type="text" value="При подтверждении" name="traffic2" placeholder="Дата регистрации грузопотока">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic_dateSet" class="nameTable">Дата Прибытия</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="traffic_dateSet" type="date" name="traffic_dateSet" placeholder="Дата желаемого прибытия">
+                        <input id="traffic_dateSet2" type="text" name="traffic_dateSet2" readonly>
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic10" class="nameTable">Высота паллета</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="traffic10" type="number" name="traffic10" placeholder="Высота паллета для поиска склада">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic3" class="nameTable">Категория</label>
+                    </div>
+                    <div class="col-7">
+                        <select class="btnTable" id="traffic3" name="traffic3">
+                            <option value="Сухие товары">Сухие товары</option>
+                            <option value="Скоропортящиеся товары">Скоропортящиеся товары</option>
+                            <option value="Хрупкие товары">Хрупкие товары</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="countpallet" class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic2" class="nameTable">Количество паллет</label>
+                    </div>
+                    <div class="col-7">
+                        <input readonly id="traffic4" type="text" name="traffic4" placeholder="Количество паллет">
+                    </div>
+                </div>
+                <div id="tr5" class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="traffic5" class="nameTable">Отправка на склад</label>
+                    </div>
+                     <div class="col-7">
+                         <select class="btnTable" id="traffic5" name="traffic5">
+
+                        </select>
+                     </div>
+                </div>
+                <div id="predmet" class="row pad15 ">
+                    <div id="tableSql2" class="container-fluid tableSql" style="min-height: 100%">
+                        <div class="row headTableSql">
+                            <div class="col-3">
+                                <div class="center">Название</div>
+                            </div>
+                            <div class="col-3">
+                                <div class="center">Температура</div>
+                            </div>
+                            <div class="col-3">
+                                <div class="center">Срок годности</div>
+                            </div>
+                            <div class="col-3">
+                                <div class="center">Паллет, шт</div>
+                            </div>
+                        </div>
+                        <div id="item_selector" class="row pad15TB">
+
+                        </div>
+                        <div class="row pad15TB">
+                            <div id="additem" class="col-6 h36"><div onclick="addNewItem()" class="center svr" style="margin: 0">Добавить товар</div></div>
+                            <div id="stopItem" class="col-6 h36"><div onclick="StopAddItem()" class="center svr" style="margin: 0;">Перейти к складу</div></div>
+                            <div id="otmenaGr" class="col-6 h36"><div onclick="window.location='/traffic/'" class="center svr" style="margin: 0;">Отменить</div></div>
+                            <div id="sendGr" class="col-6 h36"><div onclick="SendTraffic()" class="center svr" style="margin: 0;">Потвердить грузопоток</div></div>
+                            <div id="sendGr2" class="col-6 h36"><div onclick="podtverdit()" class="center svr" style="margin: 0;">Время прибытия</div></div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div id="tableSql" class="container-fluid tableSql">
+            <div class="row headTableSql nezag">
+                <div class="col-3">
+                    <div class="center">Отправитель</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Регистрация</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Прибытие</div>
+                </div>
+                <div class="col-1">
+                    <div class="center">Разгрузка, м</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Склад</div>
+                </div>
+                <div class="col-2">
+                     <div class="center">Паллет, шт</div>
+                </div>
+            </div>
+            <div class="row headTableSql zag">
+                <div class="col-4">
+                    <div class="center">Дата регистрации</div>
+                </div>
+                <div class="col-4">
+                    <div class="center">Дата начала загрузки</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Паллет, шт</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Статус</div>
+                </div>
+            </div>
+            {% cycle '1' '0' as rowcolors silent %}
+
+            {% for rec in tr5 %}
+                <div class="row strTable zag
+                {% if rowcolors != '1'%}secondTable
+                {% endif %}" style="height: 100%" onclick="selTraffic('{{ rec.id }}')">
+                    <div class="col-4">
+                        <div class="center">{{ rec.dateRegister }}{% cycle rowcolors %}</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="center">{{ rec.dateArrival }}</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="center">{{ rec.coutPalletAll }}</div>
+                    </div>
+                    <div class="col-2">
+                        <div class="center">{{ rec.status }}</div>
+                    </div>
+                    <div class="container-fluid z"  id="tov{{ rec.id }}">
+                    {% for ch in prd %}
+                            {% if ch.Unloader == rec %}
+                                <div class="row" style="padding-top: 15px;">
+                                    <div class="col-4 offset-2">
+                                        &bull;  {{ ch.name }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                    {% endfor %}
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-6 trafBtn" style=" display: none" id="tov-{{ rec.id }}">
+                        <div onclick="closeTraffic('{{ rec.id }}');" class="center svr">Свернуть &and;</div>
+                    </div>
+                    {% if rec.status != "Отправлен"%}
+                        <div class="col-6 trafBtn" style="display: none" id="tov_{{ rec.id }}">
+                            <div onclick="editTraffic2('{{ rec.id }}');" class="center svr">Изменить &#128396;</div>
+                        </div>
+                    {% endif %}
+                    </div>
+
+
+            {% endfor %}
+
+
+            {% for rec in tr %}
+                {% if rowcolors == '1'%}
+                    <div class="row strTable
+                    {% if rec.status == "Отправлен" %}
+                    otp
+                    {% elif rec.status == "Прибыл" %}
+                    prb
+                    {% elif rec.status == "Принят" %}
+                    prn
+                    {% else %}
+                    otm
+                    {% endif %}
+                    " onclick="selTraffic('{{ rec.id }}')">
+                {% else %}
+                    <div class="row strTable secondTable
+                    {% if rec.status == "Отправлен" %}
+                    otp
+                    {% elif rec.status == "Прибыл" %}
+                    prb
+                    {% elif rec.status == "Принят" %}
+                    prn
+                    {% else %}
+                    otm
+                    {% endif %}
+                    " onclick="selTraffic('{{ rec.id }}')">
+                {% endif %}
+                        <div class="col-3">
+                            <div class="center">{{ rec.name }}{% cycle rowcolors %}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.dateRegister }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">
+                                {% if rec.status == "Отправлен" %}
+                                    {{ rec.dateArrival }}
+                                {% else %}
+                                    {{ rec.dateUpload }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="center">
+                                {% if rec.status == "Отправлен" %}
+                                    -
+                                {% else %}
+                                    {{ rec.timeProc }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">
+                                {{ rec.sklad.name }}
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">
+                                {{ rec.coutPalletAll }}
+                            </div>
+                        </div>
+                        <div class="col-12" style="display: none" id="tov{{ rec.id }}">
+                        {% for ch in prd %}
+                            {% if ch.traffic == rec %}
+                                <div class="row" style="padding-top: 15px">
+                                    <div class="col-3 offset-2">
+                                        &bull;  {{ ch.name }}
+                                    </div>
+                                    <div class="col-1">
+                                        <div class="center">{{ ch.optimumTemperature }} c<sup>o</sup></div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="center">Срок годности: {{ ch.shelfLife }}</div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="center">{{ ch.countPallet }}, шт</div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        <div class="col-6 trafBtn" style=" display: none" id="tov-{{ rec.id }}">
+                            <div onclick="closeTraffic('{{ rec.id }}');" class="center svr">Свернуть &and;</div>
+                        </div>
+                        {% if rec.status == "Отправлен" or rec.status == "Прибыл" %}
+                        <div class="col-6 trafBtn" style="display: none" id="tov_{{ rec.id }}">
+                                    <div onclick="editTraffic('{{ rec.id }}');" class="center svr">Изменить &#128396;</div>
+                        </div>
+                        {% endif %}
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

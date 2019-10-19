@@ -1,0 +1,258 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    margin: 0;
+}
+header{
+    position: fixed;
+    top: 0;
+    width: 100%
+}
+.margMain{
+    margin-top: 76px;
+}
+
+.vCenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+.main{
+    padding: 0;
+}
+
+.main_index{
+    min-height: calc(100vh - 4.75rem);
+    background-color: #f7f8fb
+}
+
+.filterOrder{
+    height: 76px;
+    color: #81838e;
+    background-color: white;
+    box-shadow: 0 5px 5px -5px #333;
+    font-weight: bold;
+}
+.filterOrder .col-2:hover{
+    color: #f47c28;
+    border-bottom: 5px #f47c28 solid;
+    cursor: pointer;
+}
+
+.activeFilter{
+    color: #f47c28;
+    border-bottom: 5px #f47c28 solid;
+}
+
+.filt{
+    color: #adb0bb;
+    font-weight: normal;
+}
+.tableSetting{
+    margin-top: 45px;
+    margin-bottom: 45px;
+    height: 100%;
+}
+.tableSql{
+    margin-top: 45px;
+    min-height: calc(100vh - 4.75rem - 172px);
+}
+.skladAdd{
+    display: none;
+    margin-top: 45px;
+    min-height: calc(100vh - 4.75rem - 172px);
+    background-color: white;
+    border: 1px #adb0bb solid;
+    border-radius: 4px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.headTableSql{
+    background-color: #d1d5e3;
+    height: 86px;
+}
+.strTable{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+.strTable:hover{
+    background-color: #adb0bb;
+}
+.secondTable{
+    background-color: #f0f2f8;
+}
+.typeTable1{
+    background-color: #ea944c;
+    padding: 6px;
+    border-radius: 4px;
+    color: white;
+}
+.typeTable2{
+    background-color: #e5b64c;
+    padding: 6px;
+    border-radius: 4px;
+    color: white;
+}
+.typeTable3{
+    background-color: #6676bc;
+    padding: 6px;
+    border-radius: 4px;
+    color: white;
+}
+.nameTable{
+    text-align: right;
+    padding: 10px;
+    font-weight: bold;
+}
+.divNameT{
+    text-align: right;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.tableInput input{
+    border: 1px #adb0bb solid;
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px;
+}
+.pad15{
+    padding-bottom: 15px;
+}
+.btnTable{
+    background-color: #eff1f8;
+    border-radius: 4px;
+    height: 100%;
+    border: 1px #adb0bb solid;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
+.btnTable2{
+    background-color: #eff1f8;
+    border-radius: 4px;
+    height: 100%;
+    border: 1px #adb0bb solid;
+    cursor: pointer;
+}
+.btnTable2:hover{
+    background-color: #adb0bb;
+    color: white;
+}
+
+.active_btnTable2{
+    background-color: #adb0bb;
+    color: white;
+}
+
+.btnTable:hover{
+    background-color: #ea944c;
+    color: white;
+}
+select.btnTable{
+    width: 100%;
+    background-color: white;
+}
+select.btnTable:hover{
+    background-color: #f2f7ff;
+    color: black;
+}
+.head_sh{
+    height: 76px;
+}
+.strTable .col-2{
+    height: 36px;
+}
+.trafBtn{
+    height: 36px;
+    padding-top: 80px;
+}
+.svr{
+    background-color: #f47c28;
+    padding: 10px 80px 10px 80px;
+    border: 1px #adb0bb solid;
+    border-radius: 20px;
+    margin-top: 25px;
+    color: white;
+}
+.svr:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+.padTop30{
+    padding-top: 30px;
+}
+.pad15TB{
+    padding-top: 25px;
+    padding-bottom: 25px
+}
+.h36{
+    height: 36px
+}
+.center .danger_input{
+    border: 1px solid #cc0028;
+    box-shadow: inset 0 2px 2px #cc0028;
+}
+.pad30B{
+    padding-bottom: 30px;
+}
+#car_type, #car_type_Boolean{
+    border: 1px #adb0bb solid;
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px;
+}
+.pad60{
+    padding-top: 60px;
+}
+.pad15T{
+    padding-top: 15px;
+}
+.h72{
+    height: 72px;
+}
+.activeTr{
+    background-color: #f47c28;
+    color: white;
+}
+#tableSettRz{
+    background-color: white;
+    border: 1px #adb0bb solid;
+    border-radius: 4px;
+}
+#razgruzka_date, #razgruzka_count{
+    width: 100%;
+    height: 100%;
+}
+#pdf_btn{
+    background-color: white;
+    border: 1px #adb0bb solid;
+    border-radius: 4px;
+    height: 36px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    width: 30%;
+}
+#pdf_btn:hover{
+    background-color: #f47c28;
+    color: white;
+    cursor: pointer;
+}
+#chart1{
+    /*width: 20%;*/
+    margin-bottom:  100px;
+    background-color: #f7f8fb;
+}

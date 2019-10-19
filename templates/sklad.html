@@ -1,0 +1,166 @@
+<div class="main_index">
+    <div class="container-fluid">
+        <div class="row filterOrder">
+            <div id="sk_all" onclick="select_active('sk_all')" class="col-2 activeFilter">
+                <div class="center">Все <span class="filt"> ({{ sklad.count }})</span></div>
+            </div>
+            <div id="sk_dry" onclick="select_active('sk_dry')" class="col-2">
+                <div class="center">Cухие <span class="filt"> ({{ skladSyx.count }})</span></div>
+            </div>
+            <div id="sk_fast" class="col-2"  onclick="select_active('sk_fast')">
+                <div class="center">Cкоропортящиеся <span class="filt"> ({{ skladSkr.count }})</span></div>
+            </div>
+            <div id="sk_dan" class="col-2" onclick="select_active('sk_dan')">
+                <div class="center">Хрупкие <span class="filt"> ({{ skladXry.count }})</span></div>
+            </div>
+            <div id="sk_add" onclick="skaldAdd()" class="offset-2 col-2">
+                <div class="center">Добавить &oplus;</div>
+            </div>
+        </div>
+        <div id="skladAdd" class="container-fluid skladAdd tableInput">
+            <form id="formAddSklad" role="form">{% csrf_token %}
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="sklad_name" class="nameTable">Наименование</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="sklad_name" type="text" name="sklad_name" placeholder="Название склада">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="sklad_visota" class="nameTable">размеры помещения (высота, м)</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="sklad_visota" type="number" min="2" max="1000" name="sklad_visota" placeholder="Высота от пола до потолка">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="sklad_ploshad" class="nameTable">Площадь помещения, м<sup>2</sup></label>
+                    </div>
+                    <div class="col-7">
+                        <input id="sklad_ploshad" type="number" min="100" max="1000000" name="sklad_ploshad" placeholder="Площадь складского помещения">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="sklad_temp" class="nameTable">Температура, C<sup>o</sup></label>
+                    </div>
+                    <div class="col-7">
+                        <input id="sklad_temp" min="-50" max="+70" type="number" name="sklad_temp" placeholder="Температура складского помещения">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="sklad_type_Stelash" class="nameTable">Стеллаж</label>
+                    </div>
+                    <div class="col-7">
+                        <select class="btnTable" id="sklad_type_Stelash" name="sklad_type_Stelash">
+                            {% for sk in stelagi %}
+                                <option value="{{ sk.id }}">высота: {{ sk.countShelf }}*{{ sk.height }} мм, {{ sk.lengthS }}x{{ sk.widthS }}. {{ sk.countShelf }} яруса ({{ sk.kg_polki }} кг)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="sklad_count_st" class="nameTable">Кол-во стеллажей</label>
+                    </div>
+                    <div class="col-7">
+                        <input id="sklad_count_st" min="0" type="number" name="sklad__count_st" placeholder="Количество стеллажей на складе">
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="col-4 divNameT">
+                        <label for="sklad_type" class="nameTable">Тип склада</label>
+                    </div>
+                    <div class="col-7">
+                        <select class="btnTable" id="sklad_type" name="sklad_type">
+                            <option value="Сухие товары">Сухие товары</option>
+                            <option value="Cкоропортящиеся товары">Cкоропортящиеся товары</option>
+                            <option value="Хрупкие товары">Хрупкие товары</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row pad15">
+                    <div class="offset-5 col-3" style="padding-right: 0;">
+                        <div onclick="closeAddSklad()" class="btnTable" style="border-radius: 4px 0 0 4px;"><div class="center">Отменить</div></div>
+                    </div>
+                    <div class="col-3" style="padding-left: 0;">
+                        <input id="sklad_sbmt" class="btnTable" type="submit" value="ДОБАВИТЬ СКЛАД" style="border-radius: 0 4px 4px 0;border-left: 0;">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="tableSql" class="container-fluid tableSql">
+            <div class="row headTableSql">
+                <div class="col-1">
+                    <div class="center">Номер №</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">наименование</div>
+                </div>
+                <div class="col-2">
+                    <div class="center">S полезная, м<sup>2</sup></div>
+                </div>
+                <div class="col-2">
+                    <div class="center">Температура</div>
+                </div>
+                <div class="col-3">
+                    <div class="center">размеры</div>
+                </div>
+                <div class="col-2">
+                     <div class="center">Тип</div>
+                </div>
+            </div>
+            {% cycle '1' '0' as rowcolors silent %}
+            {% for rec in sklad %}
+                {% if rowcolors == '1'%}
+                    <div class="row strTable
+                    {% if rec.typeProduct == "Сухие товары" %}
+                        sk_dry
+                    {% elif rec.typeProduct == "Скоропортящиеся товары" %}
+                        sk_fast
+                    {% elif rec.typeProduct == "Хрупкие товары" %}
+                        sk_dan
+                    {% endif %}">
+                {% else %}
+                    <div class="row strTable secondTable
+                    {% if rec.typeProduct == "Сухие товары" %}
+                        sk_dry
+                    {% elif rec.typeProduct == "Скоропортящиеся товары" %}
+                        sk_fast
+                    {% elif rec.typeProduct == "Хрупкие товары" %}
+                        sk_dan
+                    {% endif %}">
+                {% endif %}
+                        <div class="col-1">
+                            {{ rec.id }} {% cycle rowcolors %}
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.name }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.get_S_pol }}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="center">{{ rec.optimumTemperature }}</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="center">{{ rec.size }}x{{ rec.height }}</div>
+                        </div>
+                        <div class="col-2">
+                            {% if rec.typeProduct == "Сухие товары" %}
+                                <div class="center typeTable1">{{ rec.typeProduct }}</div>
+                            {% elif rec.typeProduct == "Скоропортящиеся товары" %}
+                                <div class="center typeTable2">Скоропортящиеся</div>
+                            {% elif rec.typeProduct == "Хрупкие товары" %}
+                                <div class="center typeTable3">{{ rec.typeProduct }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

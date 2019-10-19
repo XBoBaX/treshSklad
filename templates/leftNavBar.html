@@ -1,0 +1,54 @@
+{% load staticfiles  %}
+<div class="col-4 col-lg-2 navLeft">
+    <ul class="ulFirst">
+
+        {% if index == 1 %}
+            <li onclick="window.location.href='/'" class="activeLi" style="background: url('{% static "images/orders2.png" %}') left no-repeat;background-size: contain">Товары</li>
+        {% else %}
+            <li onclick="window.location.href='/'" style="background: url('{% static "images/orders.png" %}') left no-repeat;background-size: contain">Товары</li>
+        {% endif %}
+
+        {% if type_user == "Менеджер" %}
+            {% if index == 2 %}
+                <li onclick="window.location.href='/sklad/'" class="activeLi" style="background: url('{% static "images/storage2.png" %}') left no-repeat;background-size: contain">Склад</li>
+            {% else %}
+                <li onclick="window.location.href='/sklad/'" style="background: url('{% static "images/storage.png" %}') left no-repeat;background-size: contain">Склад</li>
+            {% endif %}
+        {% endif %}
+        {% if type_user == "Менеджер" %}
+            {% if index == 3 %}
+                <li onclick="window.location.href='/shelving/'" class="activeLi" style="background: url('{% static "images/cargo2.png" %}') left no-repeat;background-size: contain">Стеллаж</li>
+            {% else %}
+                <li onclick="window.location.href='/shelving/'" style="background: url('{% static "images/cargo.png" %}') left no-repeat;background-size: contain">Стеллаж</li>
+            {% endif %}
+        {% endif %}
+        {% if index == 4 or index == 5 or index == 8 %}
+            <li onclick="window.location.href='/traffic/'" class="activeLi" style="background: url('{% static "images/truck2.png" %}') left no-repeat;background-size: contain">Грузопоток</li>
+        {% else %}
+            <li onclick="window.location.href='/traffic/'" style="background: url('{% static "images/truck.png" %}') left no-repeat;background-size: contain">Грузопоток</li>
+        {% endif %}
+
+        {% if index == 6 %}
+            <li onclick="window.location.href='/car/'" class="activeLi" style="background: url('{% static "images/car2.png" %}') left no-repeat;background-size: contain">Транспорт</li>
+        {% else %}
+            <li onclick="window.location.href='/car/'" style="background: url('{% static "images/car.png" %}') left no-repeat;background-size: contain">Транспорт</li>
+        {% endif %}
+        {% if index == 7 %}
+            <li onclick="window.location.href='/traffic/unloading/'" class="activeLi" style="background: url('{% static "images/unloading2.png" %}') left no-repeat;background-size: contain">Разгрузка</li>
+        {% else %}
+            <li onclick="window.location.href='/traffic/unloading/'" style="background: url('{% static "images/unloading.png" %}') left no-repeat;background-size: contain">Разгрузить</li>
+        {% endif %}
+        {% if index == 9 %}
+            <li onclick="window.location.href='/stats/'" class="activeLi" style="background: url('{% static "images/stat2.png" %}') left no-repeat;background-size: contain">Статистика</li>
+        {% else %}
+            <li onclick="window.location.href='/stats/'" style="background: url('{% static "images/stat.png" %}') left no-repeat;background-size: contain">Статистика</li>
+        {% endif %}
+{#        <li style="background: url('{% static "images/finance.png" %}') left no-repeat;background-size: contain">Финансы</li>#}
+{#        <li style="background: url('{% static "images/orders.png" %}') left no-repeat;background-size: contain">Еще чет</li>#}
+{#        <li style="background: url('{% static "images/orders.png" %}') left no-repeat;background-size: contain">Уведомление</li>#}
+    </ul>
+    <ul>
+        <li style="background: url('{% static "images/settings.png" %}') left no-repeat;background-size: contain">Настройки</li>
+        <li style="background: url('{% static "images/logout.png" %}') left no-repeat;background-size: contain">Выход</li>
+    </ul>
+</div>

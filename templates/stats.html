@@ -1,0 +1,38 @@
+<div class="main_index">
+    <div class="container-fluid">
+        <div class="row pad15TB">
+            <select id="sel_skl_stats" class="btnTable h36" name="sklad_select">
+                <option value="9999999">Все склады</option>
+                {% for ch in sk %}
+                    <option value="{{ ch.id }}">{{ ch.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="row pad15TB">
+            <div class="col-6 h36">
+                <select id="sel_mnt" class="btnTable h36" name="sklad_select">
+                    <option selected value="0">Текущий месяц</option>
+                    <option value="1">Январь</option>
+                    <option value="2">Февраль</option>
+                    <option value="3">Март</option>
+                    <option value="4">Апрель</option>
+                    <option value="5">Май</option>
+                    <option value="6">Июнь</option>
+                    <option value="7">Июль</option>
+                    <option value="8">Август</option>
+                    <option value="9">Сентябрь</option>
+                    <option value="10">Октябрь</option>
+                    <option value="11">Ноябрь</option>
+                    <option value="12">Декабрь</option>
+                </select>
+            </div>
+        </div>
+        <div class="row pad15TB">
+            <div class="col-12">
+                <canvas id="chart1" height="100"></canvas>
+            </div>
+        </div>
+
+        <div id="pdf_btn"><div class="center">Создать PDF-отчет</div> </div>
+    </div>
+</div>
