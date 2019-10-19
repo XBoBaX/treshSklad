@@ -25,7 +25,7 @@ SECRET_KEY = '9r0%i_nsshntxp(h^imza8acv)te(7ieua-kqt2&5(q3m3^$f6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["djangokyda.pythonanywhere.com",]
+ALLOWED_HOSTS = ["djangokyda.pythonanywhere.com", "127.0.0.1"]
 
 
 # Application definition
