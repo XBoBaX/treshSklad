@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from django.urls import re_path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from products import views as prd_views
 from WarehouseSpace import views as skld_views
@@ -36,4 +38,4 @@ urlpatterns = [
     path('stats/get/', sts_views.getSt),
     path('stats/', sts_views.show_index),
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
