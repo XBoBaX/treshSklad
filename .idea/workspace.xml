@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0083e0e-e7a8-41e5-8d8e-859887e87ba2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sklad/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklad/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/leftNavBar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/leftNavBar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklad/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklad/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/sklad/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="396">
-              <caret line="40" column="67" lean-forward="true" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="67" />
+              <caret line="40" column="65" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -53,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sklad/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="129" column="18" selection-start-line="129" selection-start-column="18" selection-end-line="129" selection-end-column="18" />
+            <state relative-caret-position="335">
+              <caret line="131" lean-forward="true" selection-start-line="131" selection-end-line="131" />
             </state>
           </provider>
         </entry>
@@ -154,11 +153,11 @@
       <find>tableSql</find>
       <find>index == 7</find>
       <find>cha</find>
-      <find>json</find>
       <find>root</find>
       <find>base_dir</find>
       <find>base_di</find>
       <find>static_ro</find>
+      <find>json</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -220,9 +219,9 @@
         <option value="$PROJECT_DIR$/static/js/Chart.js" />
         <option value="$PROJECT_DIR$/static/css/main.css" />
         <option value="$PROJECT_DIR$/templates/stats.html" />
+        <option value="$PROJECT_DIR$/templates/leftNavBar.html" />
         <option value="$PROJECT_DIR$/sklad/urls.py" />
         <option value="$PROJECT_DIR$/sklad/settings.py" />
-        <option value="$PROJECT_DIR$/templates/leftNavBar.html" />
       </list>
     </option>
   </component>
@@ -362,18 +361,17 @@
       <workItem from="1568571776862" duration="50079000" />
       <workItem from="1569762511938" duration="22879000" />
       <workItem from="1570303790335" duration="110410000" />
-      <workItem from="1571483516372" duration="25420000" />
+      <workItem from="1571483516372" duration="25971000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="208788000" />
+    <option name="totallyTimeSpent" value="209339000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="36" width="1920" height="1044" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945354" visible="true" weight="0.16631016" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945354" visible="true" weight="0.16631016" />
       <window_info id="Structure" order="1" sideWeight="0.50054646" side_tool="true" weight="0.16417113" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -387,7 +385,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.37472528" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.37472528" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="bottom" id="Thumbnails" order="13" weight="0.32896176" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -775,13 +773,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/traffic/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-29">
-          <caret line="2" selection-start-line="2" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/conf/urls/static.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
@@ -796,13 +787,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sklad/urls.py">
+    <entry file="file://$PROJECT_DIR$/traffic/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="40" column="67" lean-forward="true" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-29">
+          <caret line="2" selection-start-line="2" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -816,10 +804,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sklad/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="40" column="65" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sklad/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="129" column="18" selection-start-line="129" selection-start-column="18" selection-end-line="129" selection-end-column="18" />
+        <state relative-caret-position="335">
+          <caret line="131" lean-forward="true" selection-start-line="131" selection-end-line="131" />
         </state>
       </provider>
     </entry>
