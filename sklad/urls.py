@@ -38,4 +38,5 @@ urlpatterns = [
     path('stats/get/', sts_views.getSt),
     path('stats/', sts_views.show_index),
     path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
